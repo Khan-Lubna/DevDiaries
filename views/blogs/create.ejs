@@ -1,0 +1,55 @@
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+
+<body>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <div class="create-blog content">
+        <form action="/blogs" method="POST">
+            <label for="title">Blog Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="snippet">Blog Snippet:</label>
+            <input type="text" id="snippet" name="snippet" required>
+
+            <div id="editor" style="height: 300px; background:white;"></div>
+
+            <input type="hidden" name="body" id="blogBody">
+
+            <label for="author">Author Name:</label>
+            <input type="text" id="author" name="author" required>
+
+            <button>Submit</button>
+        </form>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <!-- Added Quill editor CDN links -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow',
+            placeholder: 'Write your blog here...',
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    ['link', 'blockquote', 'code-block'],
+                    ['clean']
+                ]
+            }
+        });
+
+        const form = document.querySelector('form');
+        form.onsubmit = function () {
+            document.querySelector('#blogBody').value = quill.root.innerHTML;
+        };
+    </script>
+
+</body>
+</html>

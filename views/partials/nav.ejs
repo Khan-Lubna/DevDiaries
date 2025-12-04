@@ -1,0 +1,42 @@
+<nav>
+    <div class="site-title">
+        <a href="/">
+            <h1>DevDiaries</h1>
+        </a>
+        <p>Stories from Creators for Creators</p>
+    </div>
+
+    <!-- Hamburger (Visible only on mobile) -->
+    <div class="menu-btn" id="menuBtn">
+        ☰
+    </div>
+
+    <!-- Navigation Links -->
+    <ul id="navLinks">
+        <li>
+            <a href="/" class="<%= activePage === 'blogs' ? 'active-link' : '' %>">
+                Blogs
+            </a>
+        </li>
+        <li>
+            <a href="/about" class="<%= activePage === 'about' ? 'active-link' : '' %>">
+                About
+            </a>
+        </li>
+        <li>
+            <a href="/blogs/create" class="<%= activePage === 'create' ? 'active-link' : '' %>">
+                New Blog
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+<script>
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
