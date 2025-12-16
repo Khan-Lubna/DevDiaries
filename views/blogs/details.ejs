@@ -5,10 +5,18 @@
         <%- include("../partials/nav.ejs") %>
 
             <div class="details content">
-                <h2>
-                    <%= blog.title %>
-                </h2>
-                <diV class="blog-meta">
+
+                <div class="details-header">
+                    <h2>
+                        <%= blog.title %>
+                    </h2>
+
+                    <a class="delete" data-doc="<%= blog._id %>">
+                        <img src="/trashcan.svg" alt="delete icon">
+                    </a>
+                </div>
+
+                <div class="blog-meta">
                     <p><strong>Author:</strong>
                         <%= blog.author %>
                     </p>
@@ -19,13 +27,12 @@
                     <p><strong>Reading Time:</strong>
                         <%= blog.readingTime %> min
                     </p>
-                </diV>
+                </div>
+
                 <div class="content markdown-body">
                     <%- htmlBody %>
                 </div>
-                <a class="delete" data-doc="<%= blog._id %>">
-                    <img src="/trashcan.svg" alt="delete icon">
-                </a>
+
             </div>
 
             <%- include("../partials/footer.ejs") %>
