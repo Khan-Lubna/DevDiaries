@@ -1,0 +1,43 @@
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+
+<body>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-icon">
+                <i class="fa-solid fa-user-plus"></i>
+            </div>
+            <h2>Create Your Account</h2>
+            <p class="auth-subtitle">Start your journey with DevDiaries</p>
+
+            <form action="/signup" method="POST">
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" name="name" placeholder="Full Name" required autofocus>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" name="email" placeholder="Email address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="auth-btn">
+                    <i class="fa-solid fa-arrow-right"></i> Sign Up
+                </button>
+            </form>
+
+            <p class="auth-footer">
+                Already have an account? <a href="/login">Login here</a>
+            </p>
+        </div>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+
+</body>
+</html>

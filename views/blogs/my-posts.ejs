@@ -1,0 +1,68 @@
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+
+    <body>
+
+        <%- include('../partials/nav.ejs') %>
+
+            <div class="timeline-container">
+                <h2>My Learning Journey</h2>
+
+                <% if (blogs.length === 0) { %>
+                    <p>There are no blogs to display...</p>
+                <% } else { %>
+                    <% // Group blogs by day for timeline display
+                       const blogsByDay = {};
+                       blogs.forEach(function(blog) {
+                         if (!blogsByDay[blog.day]) {
+                           blogsByDay[blog.day] = [];
+                         }
+                         blogsByDay[blog.day].push(blog);
+                       });
+
+                       // Get sorted days
+                       const sortedDays = Object.keys(blogsByDay).map(Number).sort(function(a, b) { return a - b; });
+
+                       // Create timeline items %>
+                    <div class="timeline">
+                       <% sortedDays.forEach(function(day) { %>
+                         <% const dayBlogs = blogsByDay[day]; %>
+                         <div class="timeline-item">
+                           <div class="timeline-point" data-day="<%= day %>">
+                             <span class="day-number"><%= day %></span>
+                           </div>
+                           <div class="timeline-content">
+                             <% dayBlogs.forEach(function(blog) { %>
+                               <div class="blog-card">
+                                 <a href="/blogs/<%= blog._id %>" class="blog-link">
+                                   <h3 class="blog-title"><%= blog.title %></h3>
+                                   <p class="blog-snippet"><%= blog.snippet %></p>
+                                   <div class="blog-meta">
+                                     <small>By <%= blog.author %></small>
+                                     <small>
+                                       <%= blog.publishedAt.toLocaleDateString("en-US", { year: "numeric" , month: "short"
+                                           , day: "numeric" }) %>
+                                     </small>
+                                     <small>⏱️ <%= blog.readingTime %> min read</small>
+                                   </div>
+                                   <% if (blog.tags && blog.tags.length > 0) { %>
+                                     <div class="blog-tags">
+                                       <% blog.tags.forEach(tag => { %>
+                                         <a href="/blogs?tag=<%= tag %>" class="tag"><%= tag %></a>
+                                       <% }) %>
+                                     </div>
+                                   <% } %>
+                                 </a>
+                               </div>
+                             <% }); %>
+                           </div>
+                         </div>
+                       <% }); %>
+                    </div>
+                <% } %>
+            </div>
+
+            <%- include('../partials/footer.ejs') %>
+    </body>
+
+</html>

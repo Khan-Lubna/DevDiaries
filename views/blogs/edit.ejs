@@ -6,25 +6,25 @@
         <%- include('../partials/nav.ejs') %>
 
             <div class="create-blog content">
-                <form action="/blogs" method="POST">
+                <form action="/blogs/<%= blog._id %>/edit" method="POST">
                     <label for="title">Blog Title:</label>
-                    <input type="text" id="title" name="title" required>
+                    <input type="text" id="title" name="title" value="<%= blog.title %>" required>
 
                     <label for="snippet">Blog Snippet:</label>
-                    <input type="text" id="snippet" name="snippet" required>
+                    <input type="text" id="snippet" name="snippet" value="<%= blog.snippet %>" required>
 
                     <div id="editor" style="height: 300px; background:white;"></div>
 
                     <input type="hidden" name="body" id="blogBody">
 
                     <label for="author">Author Name:</label>
-                    <input type="text" id="author" name="author" required>
+                    <input type="text" id="author" name="author" value="<%= blog.author %>" required>
 
                     <label for="day">Learning Day:</label>
-                    <input type="number" id="day" name="day" min="1" placeholder="Enter learning day" required>
+                    <input type="number" id="day" name="day" min="1" value="<%= blog.day %>" required>
 
                     <label for="tags">Tags (comma-separated):</label>
-                    <input type="text" id="tags" name="tags" placeholder="e.g., React, Frontend, JavaScript">
+                    <input type="text" id="tags" name="tags" value="<%= blog.tags.join(', ') %>">
 
                     <button type="submit" name="action" value="save-draft">Save Draft</button>
                     <button type="submit" name="action" value="publish">Publish</button>
@@ -52,7 +52,11 @@
                         }
                     });
 
+                    // Load existing blog content into editor
+                    quill.root.innerHTML = `<%- blog.body %>`;
+
                     const form = document.querySelector('form');
+
                     form.onsubmit = function () {
                         document.querySelector('#blogBody').value = quill.root.innerHTML;
                     };

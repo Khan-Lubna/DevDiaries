@@ -6,30 +6,68 @@
         <%- include('../partials/nav.ejs') %>
 
             <div class="blogs content">
-                <h2>All Blogs</h2>
+                <div class="search-hero">
+                    <form class="search-form" action="/blogs/search" method="GET">
+                        <input type="text" name="q" placeholder="Search blogs by title or tags..." required>
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
+                <div class="blog-filters">
+                    <div class="filter-header">
+                        <h2>All Blogs</h2>
+                        <div class="filter-pills">
+                            <a href="/blogs" class="tag-filter-btn <%= !currentTag ? 'active' : '' %>">All Tags</a>
+                            <% if (currentTag) { %>
+                                <a href="/blogs" class="tag-filter-btn clear-filter">✕ Clear filter</a>
+                                <span class="active-filter-label">Filtering: <strong><%= currentTag %></strong></span>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
 
-                <% if (blogs.length> 0) { %>
-                    <% blogs.forEach(blog=> { %>
-                        <a class="single" href="/blogs/<%= blog._id %>">
-                            <h3 class="title">
-                                <%= blog.title %>
-                            </h3>
-                            <p class="snippet">
-                                <%= blog.snippet %>
-                            </p>
-                            <div class="blog-meta">
-                                <small>By <%= blog.author %></small>
-                                <small>
-                                    <%= blog.publishedAt.toLocaleDateString("en-US", { year: "numeric" , month: "short"
-                                        , day: "numeric" }) %>
-                                </small>
-                                <small>⏱️ <%= blog.readingTime %> min read</small>
+                <% if (allTags && allTags.length > 0) { %>
+                    <div class="tag-cloud">
+                        <p><strong>Explore by Topic:</strong> Click any tag below to filter posts</p>
+                        <div class="tags-display">
+                            <% allTags.forEach(tag => { %>
+                                <% if (tag && tag.trim().length > 0) { %>
+                                    <a href="/blogs?tag=<%= tag %>" class="tag"><%= tag %></a>
+                                <% } %>
+                            <% }) %>
+                        </div>
+                    </div>
+                <% } %>
+
+                <% if (blogs.length > 0) { %>
+                    <% blogs.forEach(function(blog) { %>
+                        <a class="blog-card-link" href="/blogs/<%= blog._id %>">
+                            <div class="blog-card">
+                                <h3 class="blog-card-title"><%= blog.title %></h3>
+                                <p class="blog-card-snippet"><%= blog.snippet %></p>
+                                <div class="blog-card-meta">
+                                    <div class="meta-left">
+                                        <small><i class="fa-solid fa-user"></i> <%= blog.author %></small>
+                                        <small>
+                                            <%= blog.publishedAt.toLocaleDateString("en-US", { year: "numeric" , month: "short"
+                                                , day: "numeric" }) %>
+                                        </small>
+                                        <small><i class="fa-solid fa-clock"></i> <%= blog.readingTime %> min read</small>
+                                        <small><i class="fa-solid fa-book"></i> Day <%= blog.day %></small>
+                                    </div>
+                                    <% if (blog.tags && blog.tags.length > 0) { %>
+                                        <div class="blog-card-tags">
+                                            <% blog.tags.forEach(function(tag) { %>
+                                                <a href="/blogs?tag=<%= tag %>" class="tag-sm">#<%= tag %></a>
+                                            <% }) %>
+                                        </div>
+                                    <% } %>
+                                </div>
                             </div>
                         </a>
-                        <% }) %>
-                            <% } else { %>
-                                <p>There are no blogs to display...</p>
-                                <% } %>
+                    <% }); %>
+                    <% } else { %>
+                        <p class="no-blogs">There are no blogs to display...</p>
+                <% } %>
             </div>
 
             <%- include('../partials/footer.ejs') %>

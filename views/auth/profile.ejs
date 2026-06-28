@@ -1,0 +1,158 @@
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+
+    <body>
+        <%- include('../partials/nav.ejs') %>
+
+            <div class="profile content">
+                <div class="profile-header">
+                    <h1>👤 <%= profileUser.name %>
+                    </h1>
+                    <p class="profile-bio">Learning journey of <%= profileUser.name %>
+                    </p>
+                </div>
+
+                <!-- Achievements Section -->
+                <div class="stat-card achievements-card">
+                    <h3>🏆 Achievements</h3>
+                    <div class="achievements-grid">
+                        <% if (profileUser.achievements && profileUser.achievements.length > 0) { 
+                                const achievementMap = {
+                                    'first-blog': '📝 First Blog',
+                                    '10-posts': '📝 10 Posts',
+                                    '25-posts': '📝 25 Posts',
+                                    '50-posts': '📝 50 Posts',
+                                    'day-5-learner': '📚 Day 5 Learner',
+                                    'day-10-learner': '📚 Day 10 Learner',
+                                    'day-25-learner': '📚 Day 25 Learner',
+                                    'day-50-learner': '📚 Day 50 Learner',
+                                    'streak-3': '🔥 3 Day Streak',
+                                    'streak-7': '🔥 7 Day Streak',
+                                    'streak-14': '🔥 14 Day Streak',
+                                    'streak-30': '🔥 30 Day Streak',
+                                    'first-goal-completed': '🎯 First Goal Completed',
+                                    'goal-30-days': '🎯 30 Day Goal Completed',
+                                    'goal-100-days': '🎯 100 Day Goal Completed',
+                                    'react-explorer': '⚛️ React Explorer',
+                                    'nodejs-learner': '🟩 Node.js Learner',
+                                    'mongodb-explorer': '🍃 MongoDB Explorer',
+                                    'css-master': '🎨 CSS Master'
+                                }; 
+                            %>
+                                <% profileUser.achievements.forEach(function(achievement) { %>
+                                    <span class="achievement-badge">
+                                        <%= achievementMap[achievement] || achievement %>
+                                    </span>
+                                <% }); %>
+                            <% } else { %>
+                            <p class="no-achievements">No achievements yet. Start learning to earn your first badge!</p>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="profile-stats">
+                    <div class="stat-card">
+                        <h3>📚 Learning Day Reached</h3>
+                        <p class="stat-value">
+                            <%= latestLearningDay %>
+                        </p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>🔥 Current Streak</h3>
+                        <p class="stat-value">
+                            <%= currentStreak %> Days
+                        </p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>🏆 Longest Streak</h3>
+                        <p class="stat-value">
+                            <%= longestStreak %> Days
+                        </p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>🎯 Goal Progress</h3>
+                        <p class="stat-value">
+                            <%= completedLearningDays %> / <%= learningGoalTarget %> Days
+                        </p>
+                        <p class="stat-progress">
+                            <%= Number(learningProgressPercentage || 0) + '% Complete' %>
+                        </p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: <%= Number(learningProgressPercentage || 0) + '%' %>"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>🏷️ Technologies Learned</h3>
+                        <div class="profile-tags">
+                            <% if (tags.length > 0) { %>
+                                <% tags.forEach(function(tag) { %>
+                                    <span class="tag">
+                                        <%= tag %>
+                                    </span>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <p>No tags yet</p>
+                                            <% } %>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>📝 Recent Learning Posts</h3>
+                        <div class="recent-posts">
+                            <% if (blogs.length > 0) { %>
+                                <% blogs.forEach(function(blog) { %>
+                                    <div class="post-preview">
+                                        <h4>
+                                            <%= blog.day %> - <%= blog.title %>
+                                        </h4>
+                                        <p class="post-snippet">
+                                            <%= blog.snippet.substring(0, 100) %>
+                                                <%= blog.snippet.length > 100 ? '...' : '' %>
+                                        </p>
+                                        <% if (blog.tags && blog.tags.length > 0) { %>
+                                            <div class="post-tags">
+                                                <% blog.tags.forEach(function(tag) { %>
+                                                    <span class="tag">
+                                                        <%= tag %>
+                                                    </span>
+                                                    <% }); %>
+                                            </div>
+                                            <% } %>
+                                    </div>
+                                    <% }); %>
+                                        <% } else { %>
+                                            <p>No posts yet</p>
+                                            <% } %>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>📈 Total Posts</h3>
+                        <p class="stat-value">
+                            <%= totalPosts %>
+                        </p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>⏱️ Reading Time Written</h3>
+                        <p class="stat-value">
+                            <%= totalReadingTime %> min
+                        </p>
+                    </div>
+                </div>
+
+                <% if (blogs.length > 0) { %>
+                    <div class="profile-footer">
+                        <a href="/blogs/my-posts" class="btn btn-secondary">View All Posts</a>
+                    </div>
+                    <% } %>
+            </div>
+
+            <%- include('../partials/footer.ejs') %>
+    </body>
+
+</html>

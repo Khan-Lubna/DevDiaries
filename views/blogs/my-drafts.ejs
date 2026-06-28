@@ -1,0 +1,72 @@
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+
+    <body>
+
+        <%- include('../partials/nav.ejs') %>
+
+            <div class="timeline-container">
+                <h2>My Drafts</h2>
+
+                <% if (drafts.length === 0) { %>
+                    <p>You have no drafts. Start writing a new blog to save as a draft.</p>
+                <% } else { %>
+                    <% // Group drafts by day for timeline display
+                       const draftsByDay = {};
+                       drafts.forEach(function(draft) {
+                         if (!draftsByDay[draft.day]) {
+                           draftsByDay[draft.day] = [];
+                         }
+                         draftsByDay[draft.day].push(draft);
+                       });
+
+                       // Get sorted days
+                       const sortedDays = Object.keys(draftsByDay).map(Number).sort(function(a, b) { return a - b; });
+
+                       // Create timeline items %>
+                    <div class="timeline">
+                       <% sortedDays.forEach(function(day) { %>
+                         <% const dayDrafts = draftsByDay[day]; %>
+                         <div class="timeline-item">
+                           <div class="timeline-point" data-day="<%= day %>">
+                             <span class="day-number"><%= day %></span>
+                           </div>
+                           <div class="timeline-content">
+                             <% dayDrafts.forEach(function(draft) { %>
+                               <div class="blog-card">
+                                 <a href="/blogs/<%= draft._id %>" class="blog-link">
+                                   <h3 class="blog-title"><%= draft.title %></h3>
+                                   <p class="blog-snippet"><%= draft.snippet %></p>
+                                   <div class="blog-meta">
+                                     <small>By <%= draft.author %></small>
+                                     <small>
+                                       Draft saved on <%= new Date(draft.createdAt).toLocaleDateString("en-US", { year: "numeric" , month: "short"
+                                           , day: "numeric" }) %>
+                                     </small>
+                                     <small>⏱️ <%= draft.readingTime %> min read</small>
+                                   </div>
+                                   <% if (draft.tags && draft.tags.length > 0) { %>
+                                     <div class="blog-tags">
+                                       <% draft.tags.forEach(tag => { %>
+                                         <a href="/blogs?tag=<%= tag %>" class="tag"><%= tag %></a>
+                                       <% }) %>
+                                     </div>
+                                   <% } %>
+                                 </a>
+                               </div>
+                             <% }); %>
+                           </div>
+                         </div>
+                       <% }); %>
+                    </div>
+                <% } %>
+
+                <div class="draft-actions">
+                    <a href="/blogs/create" class="btn btn-primary">Write New Draft</a>
+                </div>
+            </div>
+
+            <%- include('../partials/footer.ejs') %>
+    </body>
+
+</html>

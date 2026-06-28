@@ -11,22 +11,40 @@
                         <%= blog.title %>
                     </h2>
 
-                    <a class="delete" data-doc="<%= blog._id %>">
-                        <img src="/trashcan.svg" alt="delete icon">
-                    </a>
+                    <% if (userId && blog.userId.toString()===userId) { %>
+
+                        <div class="action-buttons">
+
+                            <a href="/blogs/<%= blog._id %>/edit" class="edit-btn">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+
+                            <a class="delete" data-doc="<%= blog._id %>">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+
+                        </div>
+
+                        <% } %>
                 </div>
 
-                <div class="blog-meta">
-                    <p><strong>Author:</strong>
-                        <%= blog.author %>
-                    </p>
-                    <p><strong>Published on:</strong>
-                        <%= blog.publishedAt.toLocaleDateString("en-US", { year: "numeric" , month: "short" ,
-                            day: "numeric" }) %>
-                    </p>
-                    <p><strong>Reading Time:</strong>
-                        <%= blog.readingTime %> min
-                    </p>
+                <div class="blog-card-meta">
+                    <div class="meta-left">
+                        <small><i class="fa-solid fa-user"></i> <%= blog.author %></small>
+                        <small>
+                            <%= blog.publishedAt.toLocaleDateString("en-US", { year: "numeric" , month: "short",
+                                day: "numeric" }) %>
+                        </small>
+                        <small><i class="fa-solid fa-clock"></i> <%= blog.readingTime %> min read</small>
+                        <small><i class="fa-solid fa-book"></i> Day <%= blog.day %></small>
+                    </div>
+                    <% if (blog.tags && blog.tags.length > 0) { %>
+                        <div class="blog-card-tags">
+                            <% blog.tags.forEach(function(tag) { %>
+                                <a href="/blogs?tag=<%= tag %>" class="tag-sm">#<%= tag %></a>
+                            <% }) %>
+                        </div>
+                    <% } %>
                 </div>
 
                 <div class="content markdown-body">

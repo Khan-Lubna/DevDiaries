@@ -1,0 +1,88 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+    <body>
+        <%- include('./partials/nav.ejs') %>
+
+        <div class="analytics content">
+                <h1><i class="fa-solid fa-chart-line"></i> Learning Analytics</h1>
+                <p class="analytics-subtitle">Insights about your learning journey</p>
+
+                <% if (userId) { %>
+                    <!-- Most Learned Technology -->
+                    <div class="analytics-card highlight-card">
+                        <div class="card-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <h2>Most Learned Technology</h2>
+                        <% if (mostLearnedTech && mostLearnedTech !== 'None') { %>
+                            <p class="stat-value"><%= mostLearnedTech %> <span class="stat-count"><%= mostLearnedTechCount %> posts</span></p>
+                        <% } else { %>
+                            <p class="stat-value">No posts yet</p>
+                        <% } %>
+                    </div>
+
+                    <!-- Technology Distribution -->
+                    <div class="analytics-card">
+                        <h2><i class="fa-solid fa-layer-group"></i> Technology Distribution</h2>
+                        <% if (techDistribution && techDistribution.length > 0) { %>
+                            <div class="tech-chart">
+                                <% techDistribution.forEach((tech, i) => { %>
+                                    <div class="tech-row">
+                                        <span class="tech-name"><%= tech.tag %></span>
+                                        <div class="tech-bar-wrapper">
+                                            <div class="tech-bar" style="width: <%= Math.min(100, (tech.count / techDistribution[0].count) * 100) %>%"></div>
+                                        </div>
+                                        <span class="tech-count"><%= tech.count %></span>
+                                    </div>
+                                <% }); %>
+                            </div>
+                        <% } else { %>
+                            <p class="no-data">No technology tags found</p>
+                        <% } %>
+                    </div>
+
+                    <!-- Monthly Activity -->
+                    <div class="analytics-card">
+                        <h2><i class="fa-solid fa-calendar-days"></i> Monthly Activity</h2>
+                        <% if (monthlyActivity && monthlyActivity.length > 0) { %>
+                            <div class="monthly-activity">
+                                <% monthlyActivity.forEach(month => { %>
+                                    <div class="month-item">
+                                        <span class="month-name"><%= month.monthName %> <%= month.year %></span>
+                                        <span class="post-count"><%= month.count %> <%= month.count === 1 ? 'Post' : 'Posts' %></span>
+                                    </div>
+                                <% }); %>
+                            </div>
+                        <% } else { %>
+                            <p class="no-data">No monthly activity data</p>
+                        <% } %>
+                    </div>
+
+                    <!-- Average Reading Time -->
+                    <div class="analytics-card">
+                        <h2><i class="fa-solid fa-clock"></i> Average Reading Time</h2>
+                        <p class="stat-value"><%= avgReadingTime %> <span class="stat-unit">min</span></p>
+                        <p class="stat-desc">Average time to read your posts</p>
+                    </div>
+
+                    <!-- Most Productive Month -->
+                    <div class="analytics-card">
+                        <h2><i class="fa-solid fa-rocket"></i> Most Productive Month</h2>
+                        <% if (mostProductiveMonth && mostProductiveMonth.count > 0) { %>
+                            <p class="stat-value"><%= mostProductiveMonth.monthName %> <%= mostProductiveMonth.year %> <span class="stat-count">(<%= mostProductiveMonth.count %> posts)</span></p>
+                        <% } else { %>
+                            <p class="stat-value">No data yet</p>
+                        <% } %>
+                    </div>
+
+                    <div class="analytics-actions">
+                        <a href="/blogs/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+                    </div>
+                <% } else { %>
+                    <p class="login-prompt">Please <a href="/login">log in</a> to view your analytics.</p>
+                <% } %>
+            </div>
+
+        <%- include('./partials/footer.ejs') %>
+    </body>
+
+</html>

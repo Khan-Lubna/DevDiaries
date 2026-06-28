@@ -9,12 +9,16 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "connect-mongo": "^6.0.0",
     "ejs": "^3.1.10",
     "express": "^5.1.0",
+    "express-session": "^1.19.0",
     "lodash": "^4.17.21",
     "marked": "^17.0.1",
     "mongoose": "^9.0.0",
     "morgan": "^1.10.1",
+    "pdfkit": "^0.19.1",
     "quill": "^2.0.3"
   }
 }

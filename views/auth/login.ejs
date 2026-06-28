@@ -1,0 +1,39 @@
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+
+<body>
+
+    <%- include('../partials/nav.ejs') %>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-icon">
+                <i class="fa-solid fa-right-to-bracket"></i>
+            </div>
+            <h2>Welcome Back</h2>
+            <p class="auth-subtitle">Login to continue your writing journey</p>
+
+            <form action="/login" method="POST">
+                <div class="input-group">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="email" name="email" placeholder="Email address" required autofocus>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="auth-btn">
+                    <i class="fa-solid fa-arrow-right"></i> Login
+                </button>
+            </form>
+
+            <p class="auth-footer">
+                Don't have an account? <a href="/signup">Get started</a>
+            </p>
+        </div>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+
+</body>
+</html>

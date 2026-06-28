@@ -1,0 +1,72 @@
+<html lang="en">
+<%- include('../partials/head.ejs') %>
+
+    <body>
+        <%- include('../partials/nav.ejs') %>
+
+            <div class="dashboard content">
+                <h1>Welcome back, <%= userId ? 'Lubna' : 'Friend' %> 👋</h1>
+
+                <% if (userId) { %>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>📝 Published Posts</h3>
+                            <p class="stat-value"><%= publishedCount %></p>
+                        </div>
+
+                        <div class="stat-card">
+                            <h3>📄 Drafts</h3>
+                            <p class="stat-value"><%= draftsCount %></p>
+                        </div>
+
+                        <div class="stat-card">
+                            <h3>🔥 Current Streak</h3>
+                            <p class="stat-value"><%= currentStreak %> Days</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <h3>🏆 Longest Streak</h3>
+                            <p class="stat-value"><%= longestStreak %> Days</p>
+                        </div>
+
+                        <div class="stat-card">
+                            <h3>📚 Latest Learning Day</h3>
+                            <p class="stat-value"><%= latestLearningDay %></p>
+                        </div>
+
+                        <div class="stat-card">
+                            <h3>⏱️ Total Reading Time Written</h3>
+                            <p class="stat-value"><%= totalReadingTime %> min</p>
+                        </div>
+
+                        <!-- Learning Goal Progress Card -->
+                        <div class="stat-card">
+                            <h3>🎯 Learning Goal</h3>
+                            <p class="stat-value"><%= completedLearningDays %> / <%= learningGoalTarget %> Days</p>
+                            <p class="stat-progress"><%= learningProgressPercentage %>% Complete</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: <%= learningProgressPercentage %>%"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Public Profile Link -->
+                    <div class="profile-link">
+                        <a href="/user/<%= userId %>" class="btn btn-outline">View Public Profile</a>
+                    </div>
+
+                    <div class="dashboard-actions">
+                        <a href="/blogs/create" class="btn btn-primary">Write New Post</a>
+                        <a href="/blogs/my-posts" class="btn btn-secondary">View All Posts</a>
+                        <a href="/blogs/my-drafts" class="btn btn-secondary">View Drafts</a>
+                    </div>
+                <% } else { %>
+                    <p>Please <a href="/login">log in</a> to see your dashboard.</p>
+                <% } %>
+            </div>
+
+        <%- include('../partials/footer.ejs') %>
+    </body>
+
+</html>
