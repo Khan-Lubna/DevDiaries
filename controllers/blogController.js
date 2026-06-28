@@ -101,7 +101,6 @@ const blog_dashboard = async (req, res) => {
             totalReadingTime,
             currentStreak,
             longestStreak,
-            // New learning goal fields
             learningGoalTarget,
             completedLearningDays,
             learningProgressPercentage

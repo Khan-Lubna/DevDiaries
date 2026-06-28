@@ -13,7 +13,7 @@
                     <label for="snippet">Blog Snippet:</label>
                     <input type="text" id="snippet" name="snippet" value="<%= blog.snippet %>" required>
 
-                    <div id="editor" style="height: 300px; background:white;"></div>
+                    <div id="editor" style="height: 300px;"></div>
 
                     <input type="hidden" name="body" id="blogBody">
 
@@ -53,7 +53,8 @@
                     });
 
                     // Load existing blog content into editor
-                    quill.root.innerHTML = `<%- blog.body %>`;
+                    const blogContent = JSON.parse('<%= JSON.stringify(blog.body) %>');
+                    quill.root.innerHTML = blogContent;
 
                     const form = document.querySelector('form');
 

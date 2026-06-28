@@ -396,6 +396,39 @@ h3 {
     box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
 }
 
+/* Quill editor fixes */
+#editor .ql-toolbar,
+#editor .ql-container,
+#editor .ql-editor,
+#editor .ql-editor.ql-blank::before {
+    text-align: left !important;
+    direction: ltr !important;
+}
+
+#editor .ql-editor p,
+#editor .ql-editor div,
+#editor .ql-editor h1,
+#editor .ql-editor h2,
+#editor .ql-editor h3 {
+    text-align: left !important;
+}
+
+#editor .ql-editor {
+    min-height: 250px;
+    display: block;
+}
+
+#editor .ql-container {
+    font-family: 'Noto Serif', serif;
+}
+
+#editor {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+}
+
 /* create styles */
 .create-blog {
     background: #fff;
@@ -1489,7 +1522,7 @@ textarea {
 
 /* Achievements Styles */
 .achievements-card {
-    grid-column: 1 / -1; /* Full width */
+    grid-column: 1 / -1; 
 }
 
 .achievements-grid {
@@ -1649,5 +1682,3 @@ textarea {
     font-style: italic;
     padding: 20px;
 }
-
-/* Auth styles - updated */

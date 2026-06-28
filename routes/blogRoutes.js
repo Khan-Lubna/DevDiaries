@@ -25,7 +25,6 @@ router.get('/:id', blogController.blog_details);
 
 router.delete('/:id', blogController.blog_delete);
 
-// Learning goal update route
 router.post('/update-goal', requireAuth, blogController.blog_update_goal);
 
 module.exports = router;

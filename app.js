@@ -2,8 +2,6 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
-// const MongoStore = require('connect-mongo');
-
 const blogRoutes = require('./routes/blogRoutes');
 const authRoutes = require('./routes/authRoutes');
 const blogController = require('./controllers/blogController');
@@ -32,19 +30,6 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-
-// Session middleware
-// app.use(session({
-//     secret: 'devdiaries-secret',
-//     resave: false,
-//     saveUninitialized: false,
-//     store: MongoStore.create({
-//         mongoUrl: dbURI
-//     }),
-//     cookie: {
-//         maxAge: 1000 * 60 * 60 * 24 // 1 day
-//     }
-// }));
 
 app.use(session({
     secret: 'devdiaries-secret',
