@@ -336,6 +336,8 @@ h3 {
     }
 
     .search-hero .search-form input {
+        width: 100%;
+        box-sizing: border-box;
         border-radius: 8px;
     }
 
@@ -916,7 +918,9 @@ textarea {
     }
 
     .timeline-point {
-        margin-left: 20px;
+        left: 22px;
+        transform: translateX(-50%);
+        margin-left: 0;
     }
 
     .timeline-content {
@@ -924,40 +928,39 @@ textarea {
     }
 
     .timeline-content::before {
-        left: -10px;
-        top: 20px;
-        border-width: 8px 10px 8px 0;
-        border-color: transparent white transparent transparent;
+        display: none;
     }
 
-    @media (max-width: 480px) {
-        .timeline::before {
-            left: 15px;
-        }
+    .timeline-content .blog-card {
+        border-left: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeline::before {
+        left: 15px;
+    }
 
         .timeline-point {
-            margin-left: 15px;
+            left: 17px;
+            transform: translateX(-50%);
+            margin-left: 0;
             width: 25px;
-            height: 25px;
-            border-width: 3px;
-        }
+        height: 25px;
+        border-width: 3px;
+    }
 
-        .timeline-point .day-number {
-            font-size: 1rem;
-        }
+    .timeline-point .day-number {
+        font-size: 1rem;
+    }
 
-        .timeline-content {
-            margin-left: 40px;
-            padding-left: 15px;
-        }
+    .timeline-content {
+        margin-left: 40px;
+        padding-left: 15px;
+    }
 
-        .timeline-content::before {
-            border-width: 6px 8px 6px 0;
-        }
-
-        .blog-title {
-            font-size: 1.1rem;
-        }
+    .blog-title {
+        font-size: 1.1rem;
     }
 }
 
@@ -993,6 +996,14 @@ textarea {
 
     .nav-search-item .search-form {
         width: 100%;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    .markdown-body p {
+        margin-left: 0;
     }
 }
 @media (max-width: 600px) {
